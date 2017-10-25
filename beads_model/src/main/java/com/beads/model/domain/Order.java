@@ -1,10 +1,10 @@
 package com.beads.model.domain;
 
 import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -46,8 +46,7 @@ public class Order {
     private List<OrderItem> orderItems;
 
     @Column(name = "modified_date")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime modifyDate = DateTime.now();
+    private Instant modifyDate = Instant.now();
 
     @Column(name = "delivery_address")
     private String deliveryAddress;
@@ -115,11 +114,11 @@ public class Order {
         return total;
     }
 
-    public void setModifyDate(DateTime modifyDate) {
+    public void setModifyDate(Instant modifyDate) {
         this.modifyDate = modifyDate;
     }
 
-    public DateTime getModifyDate() {
+    public Instant getModifyDate() {
         return modifyDate;
     }
 

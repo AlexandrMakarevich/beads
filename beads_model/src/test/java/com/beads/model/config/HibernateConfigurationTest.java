@@ -24,7 +24,7 @@ public class HibernateConfigurationTest {
     @Autowired
     private Environment env;
 
-    @Bean
+    @Bean(name = "dataSource")
     public DataSource beadDSTest() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName(env.getProperty("driver", "com.mysql.jdbc.Driver"));

@@ -27,30 +27,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>../env</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <finalName>beads_db</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase.version}</version>
-                <configuration>
-                    <propertyFile>${project.build.directory}/classes/${env}_db.properties</propertyFile>
-                    <propertyFileWillOverride>true</propertyFileWillOverride>
-                    <changeLogFile>liquibase/changelog-master.xml</changeLogFile>
-                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-                    <migrationSqlOutputFile>${project.build.directory}/migrationSql.sql</migrationSqlOutputFile>
-                    <logging>INFO</logging>
-                    <verbose>false</verbose>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

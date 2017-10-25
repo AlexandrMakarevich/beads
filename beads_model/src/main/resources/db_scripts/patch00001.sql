@@ -1,0 +1,9 @@
+CREATE TABLE `productgroup` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `PARENT_ID` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_PRD_GRP_ID` (`PARENT_ID`),
+  CONSTRAINT `FK_PRD_GRP_ID` FOREIGN KEY (`PARENT_ID`) REFERENCES `productgroup` (`ID`)
+)
