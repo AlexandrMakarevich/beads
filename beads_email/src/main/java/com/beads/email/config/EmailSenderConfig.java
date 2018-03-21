@@ -9,7 +9,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -27,12 +26,11 @@ public class EmailSenderConfig {
 
     @Bean
     public VelocityEngine buildVelocityEngine() throws IOException {
-        VelocityEngineFactoryBean velocityEngine = new VelocityEngineFactoryBean();
         Properties prop = new Properties();
         prop.setProperty("resource.loader", "class");
         prop.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        velocityEngine.setVelocityProperties(prop);
-        return velocityEngine.createVelocityEngine();
+        VelocityEngine velocityEngine = new VelocityEngine(prop);
+        return velocityEngine;
     }
 
     @Bean
