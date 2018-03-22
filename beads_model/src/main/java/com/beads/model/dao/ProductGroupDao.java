@@ -16,7 +16,7 @@ public interface ProductGroupDao {
 
     List<ProductGroup> findAllProductGroup();
 
-    void saveOrUpdate(ProductGroup productGroup);
+    int saveOrUpdate(ProductGroup productGroup);
 
     ProductGroup loadProductGroupById(int productGroupId);
 

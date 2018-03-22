@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 public interface ProductDao {
 
-    List<Product> loadProducts();
+    List<Product> loadAllProducts();
 
     Product loadProductById(Integer id);
 

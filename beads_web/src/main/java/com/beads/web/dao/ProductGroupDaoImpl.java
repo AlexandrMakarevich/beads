@@ -18,8 +18,9 @@ public class ProductGroupDaoImpl extends com.beads.model.dao.ProductGroupDaoImpl
 
     @Override
     @PreAuthorize(Constant.HAS_ROLE_ADMIN)
-    public void saveOrUpdate(ProductGroup productGroup) {
+    public int saveOrUpdate(ProductGroup productGroup) {
         super.saveOrUpdate(productGroup);
+        return productGroup.getId();
     }
 
     @Override

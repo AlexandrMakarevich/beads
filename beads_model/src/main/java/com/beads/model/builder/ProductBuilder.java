@@ -1,6 +1,7 @@
 package com.beads.model.builder;
 
 import com.beads.model.domain.Product;
+import com.beads.model.domain.ProductGroupView;
 import java.math.BigDecimal;
 
 /**
@@ -35,6 +36,13 @@ public class ProductBuilder {
 
     public ProductBuilder withDescription(String description) {
         product.setDescription(description);
+        return this;
+    }
+
+    public ProductBuilder withProductGroup(int groupId) {
+        ProductGroupView productGroupView = new ProductGroupView();
+        productGroupView.setId(groupId);
+        product.setProductGroupView(productGroupView);
         return this;
     }
 

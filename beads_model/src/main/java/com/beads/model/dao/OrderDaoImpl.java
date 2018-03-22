@@ -22,7 +22,6 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 
     @Override
     public Order loadOrderById(int orderId) {
-        return (Order) getSession().get(Order.class, orderId);
+        return getSession().get(Order.class, orderId);
     }
-
 }

@@ -62,7 +62,7 @@ public class ProductTableModel extends BeanItemContainer<Product>
     }
 
     private void populateContainerFullList() {
-        populateContainer(productDao.loadProducts());
+        populateContainer(productDao.loadAllProducts());
     }
 
     private void populateContainer(List<Product> products) {

@@ -41,7 +41,7 @@ public class ProductController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getMainData(Model model) {
         ProductPageView ppv = new ProductPageView();
-        ppv.setProducts(productDao.loadProducts());
+        ppv.setProducts(productDao.loadAllProducts());
         return buildProductViewResponse(model, ppv);
     }
 
@@ -50,7 +50,7 @@ public class ProductController {
         ProductPageView ppv = new ProductPageView();
         List<Product> products;
         if (StringUtils.isEmpty(searchString)) {
-            products = productDao.loadProducts();
+            products = productDao.loadAllProducts();
         } else {
             products = productDao.searchProductBySearchString(searchString);
         }
