@@ -15,9 +15,12 @@
 
     <properties>
         <spring.boot.version>1.4.0.RELEASE</spring.boot.version>
+        <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
     </properties>
 
     <dependencies>
+
+        <!--module-->
         <dependency>
             <groupId>beads</groupId>
             <artifactId>beads_model</artifactId>
@@ -54,10 +57,16 @@
             <version>${tomcat-jdbc.version}</version>
         </dependency>
 
+        <!--thymeleaf-->
         <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>1.7</version>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring5</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf.version}</version>
         </dependency>
 
     </dependencies>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Email</title>
+    <style type="text/css">
+        .body {
+            background-color: #d5ebed;
+            margin-top: 15px;
+            margin-left: 30px;
+        }
+
+        .text {
+            margin-top: 15px;
+            margin-left: 30px;
+            color: #f7850a;
+            font-size: 20px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .table {
+            margin-top: 15px;
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            color: black;
+            margin-left: 30px;
+            width: 70%;
+        }
+
+        .new_order {
+            margin-top: 15px;
+            color: #f7850a;
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .table_title {
+            background-color: #f7850a;
+            text-transform: uppercase;
+            font-style: oblique;
+        }
+
+        .table_body {
+            background-color: #c9c3bb;
+            opacity: .6;
+        }
+    </style>
+</head>
+
+<body class="body">
+
+<div>
+    <h3 class="new_order"><span th:text=" 'Вы получили новый заказ № ' + ${order.id}"/></h3>
+</div>
+
+<div class="text">
+    <span th:text=" 'Телефон клиента : ' + ${order.phoneNumber}"/>
+</div>
+
+<div class="text">
+    <span th:text=" 'Email клиента : ' + ${order.email}"/>
+</div>
+
+<table border="1px" class="table">
+
+    <tr class="table_title">
+        <th>Ид</th>
+        <th>Артикул</th>
+        <th>Кол-во</th>
+        <th>Продукт</th>
+        <th>Цена</th>
+    </tr>
+
+    <tr th:each="orderItem : ${order.orderItems}" class="table_body">
+        <td th:text="${orderItem.id}"/>
+        <td th:text="${orderItem.articul}"/>
+        <td th:text="${orderItem.quantity}"/>
+        <td th:text="${orderItem.product.name}"/>
+        <td th:text="${orderItem.itemPrice}"/>
+    </tr>
+
+</table>
+
+<div class="text">
+    <b><span th:text=" 'Cумма заказа : ' + ${order.totalPrice}"/></b>
+</div>
+
+<div class="text">
+    <span th:text=" 'Адрес доставки : ' + ${order.deliveryAddress}"/>
+</div>
+
+<div class="text">
+    <span th:text=" 'Коментарий клиента : ' + ${order.orderDetails}"/>
+</div>
+
+</body>
+</html>

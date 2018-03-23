@@ -1,6 +1,7 @@
 package com.beads.email.config;
 
-import org.apache.velocity.app.VelocityEngine;
+
+import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +10,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import java.io.IOException;
-import java.util.Properties;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 /**
  * Created by alexey.dranchuk on 29/1/15.
@@ -25,12 +27,20 @@ public class EmailSenderConfig {
     private Environment env;
 
     @Bean
-    public VelocityEngine buildVelocityEngine() throws IOException {
-        Properties prop = new Properties();
-        prop.setProperty("resource.loader", "class");
-        prop.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        VelocityEngine velocityEngine = new VelocityEngine(prop);
-        return velocityEngine;
+    public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver resolver) {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(resolver);
+        return templateEngine;
+    }
+
+    @Bean
+    public SpringResourceTemplateResolver thymeleafTemplateResolver() {
+        SpringResourceTemplateResolver templateResolver
+            = new SpringResourceTemplateResolver();
+        templateResolver.setPrefix("/email/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        return templateResolver;
     }
 
     @Bean
