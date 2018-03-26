@@ -88,7 +88,7 @@ public class ProductDaoImplTest extends CommonDaoIT {
         Product actualProduct = productDao.loadProductById(expectedProduct.getId());
 
         Assert.assertEquals("Actual result must be expected",
-            actualProduct, expectedProduct);
+            expectedProduct, actualProduct);
     }
 
     @Test

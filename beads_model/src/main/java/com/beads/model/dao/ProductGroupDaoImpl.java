@@ -1,15 +1,14 @@
 package com.beads.model.dao;
 
+import com.beads.model.domain.Product;
 import com.beads.model.domain.ProductGroup;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Criteria;
-import org.hibernate.NullPrecedence;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Repository;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by alexey.dranchuk on 10.10.14.
@@ -22,49 +21,58 @@ public class ProductGroupDaoImpl extends BaseDao implements ProductGroupDao {
 
     @Override
     public List<ProductGroup> findAllProductGroup() {
-        return baseQuerySearch(Restrictions.isNull(ProductGroup.PARENT_PRODUCT_GROUP));
+        return baseQuerySearch((criteriaBuilder, root) ->
+            criteriaBuilder.isNull(root.get(ProductGroup.PARENT_PRODUCT_GROUP)));
     }
 
     @Override
     public List<ProductGroup> loadProductGroupsExcludeCurrent(ProductGroup productGroup) {
         int productId = productGroup.isNewProductGroup() ? 0 : productGroup.getId();
-        return baseQuerySearch(Restrictions.ne(ProductGroup.ID, productId));
+        return baseQuerySearch((criteriaBuilder, root) ->
+            criteriaBuilder.notEqual(root.get(ProductGroup.ID), productId));
     }
 
     @Override
     public int saveOrUpdate(ProductGroup productGroup) {
-        getSession().saveOrUpdate(productGroup);
+        entityManager.persist(productGroup);
         return productGroup.getId();
     }
 
     @Override
     public ProductGroup loadProductGroupById(int productGroupId) {
-        return (ProductGroup) getSession().get(ProductGroup.class, productGroupId);
+        return entityManager.find(ProductGroup.class, productGroupId);
     }
 
     @Override
     public void deleteProductGroup(ProductGroup productGroup) {
         for(ProductGroup pg : productGroup.getChildGroups()) {
-            getSession().delete(pg);
+            entityManager.remove(pg);
         }
-        getSession().delete(productGroup);
+        entityManager.remove(productGroup);
     }
 
     @Override
     public List<ProductGroup> findProductGroupsByName(String searchString) {
         if (StringUtils.isNotBlank(searchString)) {
-            return baseQuerySearch(Restrictions.like(ProductGroup.NAME, searchString, MatchMode.ANYWHERE));
+            return baseQuerySearch((criteriaBuilder, root) ->
+                criteriaBuilder.and(criteriaBuilder.like(root.get(Product.NAME),
+                    "%" + searchString + "%")));
         }
         return findAllProductGroup();
     }
 
-    @SuppressWarnings("unchecked")
-    private List<ProductGroup> baseQuerySearch(Criterion criterion) {
-        Criteria crt = getSession().createCriteria(ProductGroup.class);
-        crt.add(criterion);
-        crt.addOrder(Order.desc(ProductGroup.ORDER_ID)
-                          .nulls(NullPrecedence.LAST));
-        crt.setMaxResults(MAX_ROW_RESULT);
-        return crt.list();
+    private List<ProductGroup> baseQuerySearch(CallBackFunc callBackFunc) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProductGroup> criteriaQuery = criteriaBuilder.createQuery(ProductGroup.class);
+        Root<ProductGroup> root = criteriaQuery.from(ProductGroup.class);
+        criteriaQuery.select(root)
+            .orderBy(criteriaBuilder.desc(root.get(ProductGroup.ORDER_ID)))
+            .where(criteriaBuilder.and(callBackFunc.execute(criteriaBuilder, root)));
+        return entityManager.createQuery(criteriaQuery).setMaxResults(MAX_ROW_RESULT).getResultList();
+    }
+
+    private interface CallBackFunc {
+
+        Predicate execute(CriteriaBuilder criteriaBuilder, Root<ProductGroup> root);
     }
 }

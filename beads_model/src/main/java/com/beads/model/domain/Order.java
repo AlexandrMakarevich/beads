@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -23,6 +24,8 @@ import org.hibernate.annotations.Type;
  * Created by alexey.dranchuk on 28.09.14.
  *
  */
+@NamedQuery(name = "loadPendingOrdersIds",
+    query = "select o.id from Order o where o.status = :status order by o.id asc")
 @Entity
 @Table(name = "`order`")
 public class Order {

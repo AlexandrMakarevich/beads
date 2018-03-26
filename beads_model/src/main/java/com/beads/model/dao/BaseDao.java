@@ -1,8 +1,7 @@
 package com.beads.model.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,13 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BaseDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    protected EntityManager entityManager;
 
     public static final int MAX_ROW_RESULT = 10000;
-
-    public Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
 
 }

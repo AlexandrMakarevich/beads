@@ -12,10 +12,21 @@
 
     </appender>
 
+    <appender name="TEST_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %date{HH:mm:ss. dd/MM/yyyy} %-5level [%thread] [%class.%method:%line] %msg%n
+            </pattern>
+        </encoder>
+
+    </appender>
+
     <logger name="com.beads.model" level="DEBUG"/>
 
-    <root level="INFO">
+    <root level="debug">
         <appender-ref ref="TEST_LOG_FILE"/>
+        <appender-ref ref="TEST_CONSOLE"/>
     </root>
 
 </configuration>

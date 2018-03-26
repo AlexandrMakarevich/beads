@@ -18,7 +18,7 @@ public class OrderDaoImpl extends com.beads.model.dao.OrderDaoImpl implements Or
 
   @Override
   public List<Order> getOrdersBySearchCriteria(SearchCriteria searchCriteria) {
-    CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
     Root<Order> root = criteriaQuery.from(Order.class);
     root.fetch(Order.ORDER_ITEMS);
@@ -30,7 +30,7 @@ public class OrderDaoImpl extends com.beads.model.dao.OrderDaoImpl implements Or
     if (predicates.length != 0) {
       criteriaQuery.where(criteriaBuilder.and(predicates));
     }
-    return getSession().createQuery(criteriaQuery).setMaxResults(MAX_ROW_RESULT).list();
+    return entityManager.createQuery(criteriaQuery).setMaxResults(MAX_ROW_RESULT).getResultList();
   }
 
   private List<Predicate> buildSearchPredicate(

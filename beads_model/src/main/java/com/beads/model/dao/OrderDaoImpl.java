@@ -16,12 +16,12 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 
     @Override
     public int saveOrUpdate(Order order) {
-        getSession().saveOrUpdate(order);
+        entityManager.persist(order);
         return order.getId();
     }
 
     @Override
     public Order loadOrderById(int orderId) {
-        return getSession().get(Order.class, orderId);
+        return entityManager.find(Order.class, orderId);
     }
 }

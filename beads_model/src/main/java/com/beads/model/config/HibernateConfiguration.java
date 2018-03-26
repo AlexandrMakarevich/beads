@@ -1,49 +1,51 @@
 package com.beads.model.config;
 
 import static com.beads.db.config.FlywayConfiguration.FLYWAY_BEAN;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import javax.sql.DataSource;
-import org.hibernate.SessionFactory;
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.Primary;
-import org.springframework.orm.hibernate5.HibernateExceptionTranslator;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Created by alexey.dranchuk on 13.09.14.
  *
  */
-
 @Configuration
 @EnableTransactionManagement
 public class HibernateConfiguration {
 
-    public static final String TRANSACTION_MANAGER_NAME = "hibernateTransactionManager";
+    public static final String PROPERTIES_PATH = "/hibernate.properties";
+    public static final String PACKAGE_TO_SCAN = "com.beads.model.domain";
 
     @Autowired
     private DataSource dataSource;
 
     @DependsOn(FLYWAY_BEAN)
     @Bean
-    public LocalSessionFactoryBean hibernateSessionFactory() {
-        LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
-        lsfb.setDataSource(dataSource);
-        lsfb.setPackagesToScan("com.beads.model.domain");
-        return lsfb;
-    }
-
-    @Bean(name=TRANSACTION_MANAGER_NAME)
-    @Primary
-    public HibernateTransactionManager hibernateTransactionManager(SessionFactory sf) {
-        return  new HibernateTransactionManager(sf);
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() throws IOException {
+        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+        entityManager.setDataSource(dataSource);
+        entityManager.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+        entityManager.setPackagesToScan(PACKAGE_TO_SCAN);
+        InputStream inputStream = getClass().getResourceAsStream(PROPERTIES_PATH);
+        Properties hibernateProperties = new Properties();
+        hibernateProperties.load(inputStream);
+        entityManager.setJpaProperties(hibernateProperties);
+        return entityManager;
     }
 
     @Bean
-    public HibernateExceptionTranslator hibernateExceptionTranslator() {
-        return new HibernateExceptionTranslator();
+    public JpaTransactionManager transactionManager() throws IOException {
+        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+        jpaTransactionManager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
+        return jpaTransactionManager;
     }
 }
