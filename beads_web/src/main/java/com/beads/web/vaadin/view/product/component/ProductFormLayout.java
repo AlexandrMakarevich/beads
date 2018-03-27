@@ -2,16 +2,22 @@ package com.beads.web.vaadin.view.product.component;
 
 import com.beads.model.domain.Product;
 import com.beads.model.domain.ProductGroupView;
-import com.beads.web.vaadin.components.BeadsComboBox;
-import com.beads.web.vaadin.components.BeadsTextField;
 import com.beads.web.vaadin.components.BeadsButton;
-import com.beads.web.vaadin.components.common.BeadsBeanFieldGroup;
+import com.beads.web.vaadin.components.BeadsComboBox;
 import com.beads.web.vaadin.components.BeadsTextArea;
+import com.beads.web.vaadin.components.BeadsTextField;
+import com.beads.web.vaadin.components.common.BeadsBeanFieldGroup;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.ui.*;
-
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Field;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Layout;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Window;
 
 /**
  * Created by alexey.dranchuk on 9/1/15.
@@ -62,6 +68,7 @@ public class ProductFormLayout extends FormLayout implements Button.ClickListene
         ((Window)getParent().getParent()).close();
     }
 
+    @SuppressWarnings("unchecked")
     private void bindComponents() {
         binder = new BeadsBeanFieldGroup<>(model.getProduct(), ProductGroupView.class);
         bindId();

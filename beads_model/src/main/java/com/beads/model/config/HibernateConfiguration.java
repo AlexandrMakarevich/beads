@@ -2,7 +2,6 @@ package com.beads.model.config;
 
 import static com.beads.db.config.FlywayConfiguration.FLYWAY_BEAN;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
@@ -10,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -35,10 +37,9 @@ public class HibernateConfiguration {
         entityManager.setDataSource(dataSource);
         entityManager.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         entityManager.setPackagesToScan(PACKAGE_TO_SCAN);
-        InputStream inputStream = getClass().getResourceAsStream(PROPERTIES_PATH);
-        Properties hibernateProperties = new Properties();
-        hibernateProperties.load(inputStream);
-        entityManager.setJpaProperties(hibernateProperties);
+        Resource resource = new ClassPathResource(PROPERTIES_PATH);
+        Properties props = PropertiesLoaderUtils.loadProperties(resource);
+        entityManager.setJpaProperties(props);
         return entityManager;
     }
 

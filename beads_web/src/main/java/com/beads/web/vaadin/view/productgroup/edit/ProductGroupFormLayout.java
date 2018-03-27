@@ -1,14 +1,19 @@
 package com.beads.web.vaadin.view.productgroup.edit;
 
 import com.beads.model.domain.ProductGroup;
-import com.beads.web.vaadin.components.BeadsComboBox;
 import com.beads.web.vaadin.components.BeadsButton;
-import com.beads.web.vaadin.components.common.BeadsBeanFieldGroup;
+import com.beads.web.vaadin.components.BeadsComboBox;
 import com.beads.web.vaadin.components.BeadsTextField;
+import com.beads.web.vaadin.components.common.BeadsBeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Layout;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Window;
 import java.util.List;
-
 
 /**
  * Created by alexey.dranchuk on 7/1/15.

@@ -1,17 +1,16 @@
 package com.beads.web.vaadin.listener;
 
 import com.beads.web.vaadin.view.order.listener.OrderChangeEvent;
-import com.github.wolfie.blackboard.Blackboard;
-import com.github.wolfie.blackboard.Event;
-import com.github.wolfie.blackboard.Listener;
 import com.beads.web.vaadin.view.order.listener.OrderSearchEvent;
 import com.beads.web.vaadin.view.product.listener.ProductChangeEvent;
 import com.beads.web.vaadin.view.product.listener.ProductSearchEvent;
 import com.beads.web.vaadin.view.productgroup.listener.ProductGroupSearchEvent;
+import com.github.wolfie.blackboard.Blackboard;
+import com.github.wolfie.blackboard.Event;
+import com.github.wolfie.blackboard.Listener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
 
 /**
  * Created by alexey.dranchuk on 8/1/15.

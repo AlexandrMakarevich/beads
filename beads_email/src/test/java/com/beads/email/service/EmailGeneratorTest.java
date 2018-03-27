@@ -32,7 +32,7 @@ public class EmailGeneratorTest {
 
     @Test
     public void test() {
-        Order order = orderBuilder.build();
+        Order order = orderBuilder.withOrderItems(orderBuilder.buildOrderItems()).build();
         String actualMessage = emailGenerator.getEmailBody(order);
     }
 }

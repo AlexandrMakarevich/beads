@@ -1,7 +1,9 @@
 package com.beads.web.vaadin.view.product.component;
 
 import com.vaadin.server.ExternalResource;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Image;
+import com.vaadin.ui.Upload;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * Created by alexey.dranchuk on 10/1/15.

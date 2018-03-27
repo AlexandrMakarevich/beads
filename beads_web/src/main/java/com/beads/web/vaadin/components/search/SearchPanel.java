@@ -1,6 +1,9 @@
 package com.beads.web.vaadin.components.search;
 
-import com.vaadin.ui.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TextField;
 
 /**
  * Created by alexey.dranchuk on 26/12/14.

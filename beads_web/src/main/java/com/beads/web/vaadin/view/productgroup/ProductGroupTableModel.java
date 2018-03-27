@@ -10,15 +10,15 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.UI;
+import java.util.Collection;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by alexey.dranchuk on 27/12/14.

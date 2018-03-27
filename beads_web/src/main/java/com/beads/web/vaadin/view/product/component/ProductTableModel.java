@@ -112,5 +112,4 @@ public class ProductTableModel extends BeanItemContainer<Product>
             selectedProduct = null;
         }
     }
-
 }

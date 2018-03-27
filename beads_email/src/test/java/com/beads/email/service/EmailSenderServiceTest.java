@@ -33,7 +33,7 @@ public class EmailSenderServiceTest {
      */
     @Test
     public void testSendEmailWithOrderStatusPending()  {
-        Order order = orderBuilder.build();
+        Order order = orderBuilder.withId(1).build();
         when(emailSenderMock.sendEmail(any(Order.class))).thenReturn(false);
         when(orderDaoMock.loadOrderById(order.getId())).thenReturn(order);
 

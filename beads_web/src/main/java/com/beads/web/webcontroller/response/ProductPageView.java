@@ -1,9 +1,7 @@
 package com.beads.web.webcontroller.response;
 
 import com.beads.model.domain.Product;
-import com.beads.model.domain.ProductGroup;
-import com.google.gwt.thirdparty.guava.common.collect.Lists;
-
+import com.google.common.collect.Lists;
 import java.util.LinkedList;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.beads.web.vaadin.view.productgroup.edit;
 
-import com.vaadin.ui.*;
+import com.vaadin.ui.Window;
 
 /**
  * Created by alexey.dranchuk on 29/12/14.
