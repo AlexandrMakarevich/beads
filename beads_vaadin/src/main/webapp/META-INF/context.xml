@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/">
+
+    <!--driverClassName="net.sf.log4jdbc.DriverSpy"-->
+    <!--url="jdbc:log4jdbc:mysql://127.0.0.1:3306/bead"-->
+
+    <Resource name="jdbc/MySQLDS" auth="Container" type="javax.sql.DataSource"
+              username="beads"
+              password="beads"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+              url="jdbc:mysql://localhost:3306/beads?characterEncoding=utf8"
+              maxActive="15"
+              maxIdle="7"
+              testOnBorrow="true"
+              removeAbandoned="true"
+              testWhileIdle="true"
+              defaultTransactionIsolation="READ_COMMITTED"
+              validationQuery="Select 1" />
+
+    <Environment name="env" value="dev" type="java.lang.String" override="false"/>
+
+    <Environment name="OPENSHIFT_LOG_DIR" value="logs" type="java.lang.String" override="false"/>
+
+</Context>
