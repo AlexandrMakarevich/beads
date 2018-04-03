@@ -56,7 +56,7 @@ public class OrderDaoImpl extends com.beads.model.dao.OrderDaoImpl implements Or
 
     List<Predicate> predicates = new ArrayList<>();
     if (searchCriteria.isOrderIdNotNull()) {
-      predicates.add(criteriaBuilder.equal(root.get(Order.ID), searchCriteria.getOrderId()));
+      predicates.add(criteriaBuilder.equal(root.get(Order.ID), Integer.valueOf(searchCriteria.getOrderId())));
     }
     if (searchCriteria.isEmailNotNull()) {
       predicates.add(criteriaBuilder.like(root.get(Order.EMAIL),

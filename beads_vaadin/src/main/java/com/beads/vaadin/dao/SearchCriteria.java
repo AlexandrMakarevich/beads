@@ -5,14 +5,14 @@ import java.time.LocalDateTime;
 
 public class SearchCriteria {
 
-  private Integer orderId;
+  private String orderId;
   private String email;
   private OrderStatus status;
   private String phoneNumber;
   private LocalDateTime dateOfOrder;
 
   public boolean isOrderIdNotNull() {
-    return orderId != null;
+    return orderId != null && !orderId.isEmpty();
   }
 
   public boolean isEmailNotNull() {
@@ -63,11 +63,11 @@ public class SearchCriteria {
     this.email = email;
   }
 
-  public Integer getOrderId() {
+  public String getOrderId() {
     return orderId;
   }
 
-  public void setOrderId(Integer orderId) {
+  public void setOrderId(String orderId) {
     this.orderId = orderId;
   }
 }

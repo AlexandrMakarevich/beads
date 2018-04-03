@@ -8,8 +8,11 @@ import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 
 @SpringUI
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class MainUI extends UI {
 
   @Autowired
