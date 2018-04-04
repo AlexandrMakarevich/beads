@@ -9,6 +9,7 @@ public class OrderGrid extends Grid<Order> {
     setDataProvider(orderGridModel);
     initColumn();
     setSizeFull();
+    addItemClickListener(orderGridModel);
   }
 
   public void initColumn() {
